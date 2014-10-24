@@ -21,7 +21,7 @@ public class HazyVisionDetector {
       }
     }
     catch(IOException ex) {
-        System.out.println("There was an error.");
+        System.out.println("There was an error?!?!?!?");
     }
     return hazyOutput;
   }
