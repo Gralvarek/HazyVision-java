@@ -9,7 +9,6 @@ public class HazyVisionDetector {
 
   Vector byteVector = new Vector();
   int[] byteInt = new int[5];
-  SocketConnection connection;
   int listenPort;
   String hazyOutput;
 
