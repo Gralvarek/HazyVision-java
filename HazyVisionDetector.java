@@ -13,13 +13,13 @@ public class HazyVisionDetector {
   int listenPort;
   String hazyOutput;
 
-  public HazyVisionDetector(SocketConnection c, int lPort) {
-    connection = c;
+  public HazyVisionDetector(int lPort) {
     listenPort = lPort;
   }
 
   public String hazyConnect() {
     ServerSocketConnection s = null;
+    hazyOutput = "";
     try {
       s = (ServerSocketConnection) Connector.open("serversocket://:" + listenport);
       SocketConnection connection = (SocketConnection) s.acceptAndOpen();
