@@ -1,3 +1,10 @@
+import java.io.IOException;
+import java.io.InputStream;
+import javax.microedition.io.Connector;
+import javax.microedition.io.ServerSocketConnection;
+import javax.microedition.io.SocketConnection;
+import java.util.Vector;
+
 public class HazyVisionDetector {
 
   Vector byteVector = new Vector();
