@@ -28,7 +28,7 @@ public class HazyVisionDetector {
 
   private int hazyParse(int iterator) {
 
-    int[] bStream = this.hazyConnect();
+    int[] bStream = this.hazyRead();
     int bIterated = bStream[iterator];
     return bIterated;
   }
@@ -43,7 +43,7 @@ public class HazyVisionDetector {
                 byte reading = b[i];
                 int byteRead = reading;
                 if(byteRead != 0) {
-                  byteStream.add(byteRead);
+                  byteVector.add(byteRead);
                 }
             }
         }
