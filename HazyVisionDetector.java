@@ -1,63 +1,60 @@
+package java.hazyvision;
+
 import java.io.IOException;
 import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.ServerSocketConnection;
 import javax.microedition.io.SocketConnection;
-import java.util.Vector;
 
 public class HazyVisionDetector {
 
-  Vector byteVector = new Vector();
-  int[] byteInt = new int[5];
-  int listenPort;
-  String hazyOutput;
+    private int[] byteInt = new int[5];
+    private int listenPort;
+    public int hazyOutput;
+    private ServerSocketConnection s;
+    private SocketConnection connection;
 
-  public HazyVisionDetector(int lPort) {
-    listenPort = lPort;
-  }
-
-  public String hazyConnect() {
-    ServerSocketConnection s = null;
-    hazyOutput = "";
-    try {
-      s = (ServerSocketConnection) Connector.open("serversocket://:" + listenport);
-      SocketConnection connection = (SocketConnection) s.acceptAndOpen();
-      for(i = 0; i < byteInt.length; i++) {
-        hazyOutput += (String) this.hazyParse(i);
-      }
+    public HazyVisionDetector(int lPort) {
+        listenPort = lPort;
+        s = null;
     }
-    catch(IOException ex) {
-        System.out.println("There was an error?!?!?!?");
+
+    public int hazyConnect() {
+        // Attempt to open port
+        try {
+            s = (ServerSocketConnection) Connector.open("serversocket://:" + listenPort);
+            System.out.println("Let's connect!");
+        } catch(IOException ex) {
+        }
+        // Connect
+        try {
+            connection = (SocketConnection) s.acceptAndOpen();
+        } catch(IOException e) {
+        }
+        
+        // Everthing else
+        hazyOutput = this.hazyRead();
+        
+        return hazyOutput;
     }
-    return hazyOutput;
-  }
 
-  private int hazyParse(int iterator) {
-
-    int[] bStream = this.hazyRead();
-    int bIterated = bStream[iterator];
-    return bIterated;
-  }
-
-  private int[] hazyRead() {
-    try {
-        InputStream is = connection.openInputStream();
-        byte[] b = new byte[1024];
-        if(is.available() > 0) {
-            int read = is.read(b);
-            for(int i = 0; i < read; i++) {
-                byte reading = b[i];
-                int byteRead = reading;
-                if(byteRead != 0) {
-                  byteVector.add(byteRead);
+    private int hazyRead() {
+        int byteRead = 0;
+        try {
+            InputStream is = connection.openInputStream();
+            byte[] b = new byte[1024];
+            if(is.available() > 0) {
+                int read = is.read(b);
+                for(int i = 0; i < read; i++) {
+                    byte reading = b[i];
+                    byteRead = reading;
                 }
             }
+            is.close();
+            connection.close();
+        } catch (IOException e) {
+            System.out.println("OOOOPSIE Error:"+e);
         }
-        is.close();
-        connection.close();
+        return byteRead;
     }
-    catch (IOException e) {
-    }
-    return byteInt = byteVector.toArray();
-  }
 }
