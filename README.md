@@ -1,0 +1,1 @@
+Java side to HazyVision, accepts the input stream in the socket created by the python side.
